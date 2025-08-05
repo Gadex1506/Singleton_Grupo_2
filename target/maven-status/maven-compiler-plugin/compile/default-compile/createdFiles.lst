@@ -1,0 +1,5 @@
+model\Usuario.class
+com\mycompany\singletongrupo2\SingletonGrupo2.class
+controller\ControladorUsuario.class
+database\BaseDatos.class
+view\VistaUsuario.class
