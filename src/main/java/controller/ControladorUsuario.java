@@ -20,6 +20,11 @@ public class ControladorUsuario {
     }
 
     //TO DO CRUD (Update, Read, Delete)
+  
+    // DELETE
+    public boolean eliminarUsuario(String usuario) {
+        BaseDatos bd = BaseDatos.getInstancia();
+        return bd.getListaUsuarios().removeIf(u -> u.getUsuario().equalsIgnoreCase(usuario));
     
     // Validar si el usuario se encuentra registrado en la lista de usuarios y guardar su posicion en la lista
     public int existeUsuario(String usuario) {

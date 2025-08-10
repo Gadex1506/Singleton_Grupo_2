@@ -31,6 +31,16 @@ public class VistaUsuario {
             System.out.println("No se logro insertar el nuevo usuario");
         }
     }
+     private void eliminar() {
+        String usuario = JOptionPane.showInputDialog("Ingrese usuario a eliminar:");
+        boolean eliminado = controlador.eliminarUsuario(usuario);
+
+        JOptionPane.showMessageDialog(null,
+                eliminado ? "Usuario eliminado correctamente."
+                        : "Usuario no encontrado.");
+    }
+
+    
 
     // UPDATE
     public void actualizarUsuario() {
