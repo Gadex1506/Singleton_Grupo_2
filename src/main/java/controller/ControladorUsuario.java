@@ -25,6 +25,18 @@ public class ControladorUsuario {
     public boolean eliminarUsuario(String usuario) {
         BaseDatos bd = BaseDatos.getInstancia();
         return bd.getListaUsuarios().removeIf(u -> u.getUsuario().equalsIgnoreCase(usuario));
+    }
+    
+    // Read
+    public String consultarUsuarios() {
+        StringBuilder listaUsuarios = new StringBuilder();
+
+        for (Usuario usuario : bd.getListaUsuarios()) {
+            listaUsuarios.append(usuario.toString()).append("\n");
+        }
+
+        return listaUsuarios.toString();
+    }
     
     // Validar si el usuario se encuentra registrado en la lista de usuarios y guardar su posicion en la lista
     public int existeUsuario(String usuario) {
