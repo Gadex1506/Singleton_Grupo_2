@@ -18,4 +18,10 @@ public class ControladorUsuario {
     }
 
     //TO DO CRUD (Update, Read, Delete)
+
+    // DELETE
+    public boolean eliminarUsuario(String usuario) {
+        BaseDatos bd = BaseDatos.getInstancia();
+        return bd.getListaUsuarios().removeIf(u -> u.getUsuario().equalsIgnoreCase(usuario));
+    }
 }
