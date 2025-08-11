@@ -32,7 +32,7 @@ public class Usuario {
     
     @Override
     public String toString() {
-        return "Nombre del Usuario: " + usuario + " Contraseña: " + contrasena + "\n";
+        return "\nNombre del Usuario: " + usuario + " ---- Contraseña: " + contrasena;
         //return "Usuario{" + "usuario=" + usuario + ", contrasena=" + contrasena + '}';
     }
 }
