@@ -9,6 +9,6 @@ public class SingletonGrupo2 {
 
     public static void main(String[] args) {
         VistaUsuario vista = new VistaUsuario();
-        vista.solicitarDatos();
+        vista.Menu();
     }
 }

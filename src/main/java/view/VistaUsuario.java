@@ -11,19 +11,104 @@ import model.Usuario;
 
 public class VistaUsuario {
 
-    // CREATE
-    public void solicitarDatos() {
+    // MENU
+    public void Menu() {
 
         Scanner sc = new Scanner(System.in);
-        //System.out.println("**** BIENVENIDO AL SISTEMA SINGLETON ****");
-        //System.out.println("Por favor ingresar el usuario:");
-        //String usuarioDigitado = sc.nextLine();
-        //System.out.println("Por favor ingresar la contrasena:");
-        //String contrasenaDigitada = sc.nextLine();
+        int op = 0;
+        boolean entradaValida;
 
-        String usuarioDigitado = JOptionPane.showInputDialog("Por favor ingresar el usuario:");
-        String contrasenaDigitada = JOptionPane.showInputDialog("Por favor ingresar la contraseña:");
-        
+        JOptionPane.showMessageDialog(null, "BIENVENIDO AL SISTEMA SINGLETON");
+
+        do {
+
+            entradaValida = true;
+
+            try {
+
+                do {
+
+                    do {
+
+                        // Mostrar el menu y capturar la opcion digitada por el usuario
+                        String opcion = JOptionPane.showInputDialog(
+                                "Selecciona una de las opciones del siguiente menú:\n"
+                                + "1. Consultar lista de usuarios registrados.\n"
+                                + "2. Crear un nuevo usuario.\n"
+                                + "3. Actualizar un usuario existente.\n"
+                                + "4. Eliminar un usuario existente.\n"
+                                + "0. Salir."
+                        );
+
+                        if (opcion == null) {
+                            JOptionPane.showMessageDialog(null, "No ingresaste una opción. Vuelve a intentarlo.");
+                            break;
+                        }
+
+                        op = Integer.parseInt(opcion); // Guardar la opcion ingresada y convertirla en int
+
+                        if (op < 0 || op > 4) {
+                            JOptionPane.showMessageDialog(null, "La opción que ingresaste no es valida. Vuelve a intentarlo.");
+                        }
+
+                        switch (op) {
+                            case 0:
+                                JOptionPane.showMessageDialog(null, "Saliendo del sistema...");
+                                break;
+                            case 1:
+                                consultarUsuarios();
+                                break;
+                            case 2:
+                                crearUsuario();
+                                break;
+                            case 3:
+                                actualizarUsuario();
+                                break;
+                            case 4:
+                                eliminar();
+                                break;
+                        }
+
+                    } while (op < 0 || op > 4);
+
+                } while (op != 0);
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor ingresa un número válido.");
+                entradaValida = false;
+            }
+
+        } while (!entradaValida);
+
+    }
+
+    // CREATE
+    public void crearUsuario() {
+
+        String usuarioDigitado = "";
+        String contrasenaDigitada = "";
+
+        do {
+
+            usuarioDigitado = JOptionPane.showInputDialog("Por favor ingresar el usuario:");
+            contrasenaDigitada = JOptionPane.showInputDialog("Por favor ingresar la contraseña:");
+
+            try {
+
+                if (usuarioDigitado.trim().isEmpty() || contrasenaDigitada.trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Debes ingresar un usuario y una contraseña. Vuelve a intentarlo.");
+                } else {
+                    break;
+                }
+
+            } catch (Exception e) {
+
+                JOptionPane.showMessageDialog(null, "Debes ingresar un usuario y una contraseña. Vuelve a intentarlo.");
+
+            }
+
+        } while (true);
+
         Usuario usuarioModelo = new Usuario(usuarioDigitado, contrasenaDigitada);
 
         ControladorUsuario usuarioControlador = new ControladorUsuario();
@@ -36,6 +121,7 @@ public class VistaUsuario {
             //System.out.println("No se logro insertar el nuevo usuario");
             JOptionPane.showMessageDialog(null, "No se logro insertar el nuevo usuario");
         }
+
     }
 
     // DELETE
@@ -58,25 +144,39 @@ public class VistaUsuario {
         //System.out.println("Lista de Usuarios:");
         System.out.println(usuarioControlador.consultarUsuarios());
 
-        JOptionPane.showMessageDialog(null, "Usuarios Registrados en la Base de datos:");
-        JOptionPane.showMessageDialog(null, usuarioControlador.consultarUsuarios());
+        JOptionPane.showMessageDialog(null, "Usuarios Registrados en la Base de datos:\n\n"
+                + usuarioControlador.consultarUsuarios());
     }
 
     // UPDATE
     public void actualizarUsuario() {
 
         ControladorUsuario usuarioControlador = new ControladorUsuario();
-        Scanner sc = new Scanner(System.in);
         String usuario = "";
+        int posUsuario;
         String nuevaContrasenia = "";
         boolean diferenteContrasenia;
 
-        //System.out.println("Ingresa tu nombre de usuario");
-        //usuario = sc.nextLine(); // Nombre del usuario registrado en la base de datos
-        usuario = JOptionPane.showInputDialog("Ingresa tu nombre de usuario");
+        do {
 
-        // Validar si el usuario existe y guardar la posicion donde se encuentra el usuario
-        int posUsuario = usuarioControlador.existeUsuario(usuario);
+            usuario = JOptionPane.showInputDialog("Ingresa tu nombre de usuario");
+
+            try {
+
+                if (!usuario.trim().isEmpty()) {
+                    // Validar si el usuario existe y guardar la posicion donde se encuentra el usuario
+                    posUsuario = usuarioControlador.existeUsuario(usuario);
+                    break;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Debes ingresar un nombre de usuario.");
+                }
+
+            } catch (Exception e) {
+                
+                JOptionPane.showMessageDialog(null, "Debes ingresar un nombre de usuario.");
+            }
+
+        } while (true);
 
         if (posUsuario != -1) {
 
@@ -84,11 +184,26 @@ public class VistaUsuario {
             // De lo contrario se le seguira solicitando que ingrese una nueva contrasenia
             do {
 
-                //System.out.println("Ingresa la nueva contraseña para: " + usuario);
                 // Guardar nueva contrasenia
-                //nuevaContrasenia = sc.nextLine();
-                // Guardar nueva contrasenia
-                nuevaContrasenia = JOptionPane.showInputDialog("Ingresa la nueva contraseña para: " + usuario);
+                do {
+
+                    nuevaContrasenia = JOptionPane.showInputDialog("Ingresa la nueva contraseña para: " + usuario);
+
+                    try {
+
+                        if (nuevaContrasenia.trim().isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Digita una nueva contraseña.");
+                        } else {
+                            break;
+                        }
+
+                    } catch (Exception e) {
+
+                        JOptionPane.showMessageDialog(null, "Digita una nueva contraseña...");
+
+                    }
+
+                } while (true);
 
                 // Validar que la nueva contrasenia sea diferente a la actual
                 diferenteContrasenia = usuarioControlador.mismaContrasenia(posUsuario, nuevaContrasenia);

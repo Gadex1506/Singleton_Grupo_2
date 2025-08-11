@@ -30,9 +30,11 @@ public class ControladorUsuario {
     // Read
     public String consultarUsuarios() {
         StringBuilder listaUsuarios = new StringBuilder();
+        int contador = 1;
 
         for (Usuario usuario : bd.getListaUsuarios()) {
-            listaUsuarios.append(usuario.toString()).append("\n");
+            listaUsuarios.append("Usuario ").append(contador).append(":").append(usuario.toString()).append("\n\n");
+            contador++;
         }
 
         return listaUsuarios.toString();
