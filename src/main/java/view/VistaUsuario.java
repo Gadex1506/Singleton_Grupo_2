@@ -18,6 +18,12 @@ public class VistaUsuario {
         int op = 0;
         boolean entradaValida;
 
+        JOptionPane.showMessageDialog(null, "Integrantes:\n"
+                                + "1. Angie Natalia González Arias.\n"
+                                + "2. Wilson Cifuentes Romero.\n"
+                                + "3. Oscar David Hincapie.\n"
+                                + "4. Jonathan David Torres.\n");
+        
         JOptionPane.showMessageDialog(null, "BIENVENIDO AL SISTEMA SINGLETON");
 
         do {
